@@ -8,6 +8,6 @@
 
 import Foundation
 
-open APITimeoutError: APITransportError {
+open class APITimeoutError: APITransportError {
 
 }
