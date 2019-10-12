@@ -15,9 +15,9 @@ Pod::Spec.new do |s|
   #  summary should be tweet-length, and the description more in depth.
   #
 
-  s.name         = "KMKGenericPasswordKeychainWrapper"
-  s.version      = "1.0.2"
-  s.summary      = "Class for work with keychain items of \"Generic Password\" class"
+  s.name         = "APIClient"
+  s.version      = "1.0.0"
+  s.summary      = "Networking client over Alamofire allowing to get typed responses."
 
   # This description is used to generate tags and improve search results.
   #   * Think: What does it do? Why did you write it? What is the focus?
@@ -25,11 +25,11 @@ Pod::Spec.new do |s|
   #   * Write the description between the DESC delimiters below.
   #   * Finally, don't worry about the indent, CocoaPods strips it!
   s.description  = <<-DESC
-					Class for work with keychain items of "Generic Password" class. 
-					Allows to avoid complexity of working with C based "Keychain Services API".
+					Allows to make requests to json web services and receive response directly in typed object
+					conforming native Apple's Decodable protocol
                    DESC
 
-  s.homepage     = "https://bitbucket.org/rkksoft/com.gmail.rkksoft.ios.pod.nsstring-kmkutils/overview"
+  s.homepage     = "https://github.com/yklishevich/apiclient"
   # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
 
 
@@ -66,14 +66,14 @@ Pod::Spec.new do |s|
   #
 
   # s.platform     = :ios
-  s.platform     = :ios, "7.0"
+  s.platform     = :ios, "12.0"
 
   #  When using multiple platforms
   # s.ios.deployment_target = "5.0"
   # s.osx.deployment_target = "10.7"
   # s.watchos.deployment_target = "2.0"
   # s.tvos.deployment_target = "9.0"
-
+	s.swift_versions = ['5.0', '5.1']
 
   # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -81,7 +81,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://ijin1984@bitbucket.org/rkksoft/com.gmail.rkksoft.ios.pod.kmkgenericpasswordkeychainwrapper.git", :tag => "1.0.2" }
+  s.source       = { :git => "https://github.com/yklishevich/apiclient", :tag => "1.0.0" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
@@ -92,7 +92,7 @@ Pod::Spec.new do |s|
   #  Not including the public_header_files will make all headers public.
   #
 
-  s.source_files  = "classes/**/*.{h,m}"
+  s.source_files  = "APIClient/Source/**/*.swift"
   s.exclude_files = "Classes/Exclude"
 
   # s.public_header_files = "Classes/**/*.h"
@@ -134,6 +134,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  # s.dependency "JSONKit", "~> 1.4"
+  s.dependency "Alamofire', '~> 5.0.0-rc.2"
+  s.dependency "ReachabilitySwift', '~> 5.0.0-beta1"
 
 end
