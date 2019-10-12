@@ -18,7 +18,7 @@ public protocol APIClientDelegate: class {
 public class APIClient: NSObject {
     
     /// Before using this property singleton must be initialized using `initShared(baseURL:)` static function.
-    static let shared: APIClient = {
+    public static let shared: APIClient = {
         precondition(APIClient.sBaseURL != nil, "Singleton must be initialize using `initShared(baseURL:)`")
         
         let configuration = URLSessionConfiguration.default // alamofire does not support background configuration
@@ -43,7 +43,7 @@ public class APIClient: NSObject {
         return apiClientClass.init(baseURL: APIClient.sBaseURL, manager: sessionManager)
     }()
     
-    static func initShared(baseURL: URL) throws {
+    public static func initShared(baseURL: URL) throws {
         if APIClient.sBaseURL == nil {
             APIClient.sBaseURL = baseURL.absoluteString
         }
@@ -72,7 +72,7 @@ public class APIClient: NSObject {
         self.noNetworkSessionManager = Session(configuration: configuration)
     }
     
-    @discardableResult func sendRequest(apiRequest: APIRequest) -> DataRequest {
+    @discardableResult public func sendRequest(apiRequest: APIRequest) -> DataRequest {
         let theSessionManager = reachability.connection != .unavailable ? sessionManager : noNetworkSessionManager
         
         switch apiRequest {

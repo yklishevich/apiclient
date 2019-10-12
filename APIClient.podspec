@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "APIClient"
-  s.version      = "1.0.3"
+  s.version      = "1.0.4"
   s.summary      = "Networking client over Alamofire allowing to get typed responses."
 
   # This description is used to generate tags and improve search results.
@@ -81,7 +81,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://github.com/yklishevich/apiclient.git", :tag => "1.0.3" }
+  s.source       = { :git => "https://github.com/yklishevich/apiclient.git", :tag => "1.0.4" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #

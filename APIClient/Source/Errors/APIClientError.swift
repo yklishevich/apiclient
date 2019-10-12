@@ -14,15 +14,15 @@ import Alamofire
 /// We do not use enum for errors as enum doesn't allow of extending the module (adding new types of errors).
 /// This is required when we want to plug in this module as external via some kind of dependency manager.
 open class APIClientError: LocalizedError, CustomStringConvertible {
-    let message: String?
-    let underlyingError: Error?
+    public let message: String?
+    public let underlyingError: Error?
     
-    init(_ message: String?, underlyingError: Error?) {
+    public init(_ message: String?, underlyingError: Error?) {
         self.message = message
         self.underlyingError = underlyingError
     }
     
-    convenience init(_ message: String) {
+    public convenience init(_ message: String) {
         self.init(message, underlyingError: nil)
     }
     
@@ -78,8 +78,6 @@ extension APIClientError {
                     assert(false, "Unknown error")
                     return APIClientError(underlyingError: afError)
                 }
-            case .responseSerializationFailed(_):
-                return APIRuntimeError(underlyingError: afError)
             default:
                 anError = APIClientError("Unknown error", underlyingError: afError)
             }
