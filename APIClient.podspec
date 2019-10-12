@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "APIClient"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.summary      = "Networking client over Alamofire allowing to get typed responses."
 
   # This description is used to generate tags and improve search results.
