@@ -1,0 +1,20 @@
+PODS:
+  - Alamofire (5.0.0-rc.2)
+  - ReachabilitySwift (5.0.0-beta1)
+
+DEPENDENCIES:
+  - Alamofire (~> 5.0.0-rc.2)
+  - ReachabilitySwift (~> 5.0.0-beta1)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Alamofire
+    - ReachabilitySwift
+
+SPEC CHECKSUMS:
+  Alamofire: f9450d3c7f6bea2ad62e7a541c3e9b186c7991d6
+  ReachabilitySwift: 93a5956ef3f076d7e24bc65bfb1c5042e69b7276
+
+PODFILE CHECKSUM: f38c96f464051bbbc1e6551bb905fc38cdc8ecd0
+
+COCOAPODS: 1.5.0
