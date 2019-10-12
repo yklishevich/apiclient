@@ -1,7 +1,7 @@
 /**
  Used for networking in projects with fixed endpoint, that is for projects not using REST.
  */
-protocol FixedEndpointApiRequest: APIRequest {
+public protocol FixedEndpointApiRequest: APIRequest {
     
     /// Request name.
     /// Request name is specific for networking with fixed endpoint and is used to identify the request to the server.

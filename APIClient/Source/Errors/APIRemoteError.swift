@@ -9,7 +9,7 @@
 import Foundation
 
 /// Base class for exceptions occuring on remote system.
-class APIRemoteError: APIClientError {
+open class APIRemoteError: APIClientError {
     let status: Int?
     
     init (status: Int?, message: String?) {

@@ -5,7 +5,7 @@ import Alamofire
  Encodable so that to have pissibility to save into persistent storage as property list.
  Also comparing of two objects is based on comparing of their serialized versions.
  */
-protocol APIRequest {
+public protocol APIRequest {
     
     /// Endpoint URL.
     /// Allows to change URL for the given request.
@@ -23,7 +23,7 @@ protocol APIRequest {
 }
 
 
-extension APIRequest {
+public extension APIRequest {
     
     // Default implementation for `URL` property.
     // Adding this property to some base class is bad idea because base class will have to provide default implementation 

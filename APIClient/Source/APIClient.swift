@@ -3,7 +3,7 @@ import Alamofire
 import Reachability
 
 
-protocol APIClientDelegate: class {
+public protocol APIClientDelegate: class {
     
     /// This method allows to interprete some responses from server as error.
     /// Returned error will be returned in Result.failure to code that invokes APIClient.sendRequest(apiRequest:)
@@ -15,21 +15,21 @@ protocol APIClientDelegate: class {
 }
 
 
-class APIClient: NSObject {
+public class APIClient: NSObject {
     
     /// Before using this property singleton must be initialized using `initShared(baseURL:)` static function.
-    public static let shared: APIClient = {
+    static let shared: APIClient = {
         precondition(APIClient.sBaseURL != nil, "Singleton must be initialize using `initShared(baseURL:)`")
         
         let configuration = URLSessionConfiguration.default // alamofire does not support background configuration
         configuration.httpAdditionalHeaders = ["Accept" : "application/json",
                                                "Content-Type" : "application/json"]
         
-//        #if DEBUG
-//            configuration.timeoutIntervalForRequest = 0.001 // 0 value leads to default 60 value.
-//        #else
-            configuration.timeoutIntervalForRequest = 30 // seconds
-//        #endif
+        //        #if DEBUG
+        //            configuration.timeoutIntervalForRequest = 0.001 // 0 value leads to default 60 value.
+        //        #else
+        configuration.timeoutIntervalForRequest = 30 // seconds
+        //        #endif
         configuration.timeoutIntervalForResource = 120.0
         let sessionManager = Session(configuration: configuration)
         
@@ -37,7 +37,7 @@ class APIClient: NSObject {
         guard let apiClientClassName = ProcessInfo.processInfo.environment["APIClientClassName"],
             let apiClientClass = NSClassFromString(apiClientClassName) as? APIClient.Type
             else {
-            return APIClient(baseURL: APIClient.sBaseURL, manager: sessionManager)
+                return APIClient(baseURL: APIClient.sBaseURL, manager: sessionManager)
         }
         
         return apiClientClass.init(baseURL: APIClient.sBaseURL, manager: sessionManager)
@@ -72,7 +72,7 @@ class APIClient: NSObject {
         self.noNetworkSessionManager = Session(configuration: configuration)
     }
     
-    @discardableResult public func sendRequest(apiRequest: APIRequest) -> DataRequest {
+    @discardableResult func sendRequest(apiRequest: APIRequest) -> DataRequest {
         let theSessionManager = reachability.connection != .unavailable ? sessionManager : noNetworkSessionManager
         
         switch apiRequest {
@@ -119,5 +119,5 @@ private extension DataRequest {
         }
         return dataRequest
     }
-
+    
 }

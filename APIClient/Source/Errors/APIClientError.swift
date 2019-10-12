@@ -13,7 +13,7 @@ import Alamofire
 /// Base class for errors being returned by APIClient
 /// We do not use enum for errors as enum doesn't allow of extending the module (adding new types of errors).
 /// This is required when we want to plug in this module as external via some kind of dependency manager.
-public class APIClientError: LocalizedError, CustomStringConvertible {
+open class APIClientError: LocalizedError, CustomStringConvertible {
     let message: String?
     let underlyingError: Error?
     

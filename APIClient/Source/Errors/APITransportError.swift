@@ -13,7 +13,7 @@ import Foundation
 /// Examples of transport errors:
 ///     - timeout error
 ///     - incompatible protocol version
-class APITransportError: APIClientError {
+open class APITransportError: APIClientError {
  
     // MARK: `LocalizedError` protocol
     override public var errorDescription: String? {

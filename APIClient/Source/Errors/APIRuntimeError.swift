@@ -17,6 +17,6 @@ import Foundation
  In context of APIClient runtime errors are used for errors that are not expected to be handled by APIClint's client
  and that should crash the app. For example deserialization errors are treated as runtime errors.
  */
-class APIRuntimeError: APIClientError {
+open class APIRuntimeError: APIClientError {
 
 }
