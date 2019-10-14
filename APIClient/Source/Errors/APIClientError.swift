@@ -63,29 +63,37 @@ open class APIClientError: LocalizedError, CustomStringConvertible {
 
 extension APIClientError {
     
-    public class func apiErrorFrom(_ error: Error) -> APIClientError {
-        var anError: APIClientError
+    static func apiErrorFrom(_ error: Error) -> APIClientError {
+        var retError: APIClientError
         
         switch error {
         case let afError as AFError:
             switch afError {
+            case .sessionTaskFailed(let error):
+                let nsError = error as NSError
+                if nsError.domain == NSURLErrorDomain, nsError.code == NSURLErrorTimedOut {
+                    retError = APITimeoutError(nsError.localizedDescription, underlyingError: error)
+                }
+                else {
+                    retError = APIClientError(underlyingError: afError)
+                }
             case .responseValidationFailed(let responseValidationFailureReason):
                 switch responseValidationFailureReason {
                 case AFError.ResponseValidationFailureReason.customValidationFailed(let underlyingError)
                     where underlyingError is APIClientError:
-                    return underlyingError as! APIClientError
+                    retError = underlyingError as! APIClientError
                 default:
                     assert(false, "Unknown error")
-                    return APIClientError(underlyingError: afError)
+                    retError = APIClientError(underlyingError: afError)
                 }
             default:
-                anError = APIClientError("Unknown error", underlyingError: afError)
+                retError = APIClientError("Unknown error", underlyingError: afError)
             }
         case let theError as NSError where theError.domain == NSURLErrorDomain:
-            anError = APITransportError(underlyingError: theError)
+            retError = APITransportError(underlyingError: theError)
         default:
-            anError = APIClientError("Unknown error", underlyingError: error)
+            retError = APIClientError("Unknown error", underlyingError: error)
         }
-        return anError
+        return retError
     }
 }

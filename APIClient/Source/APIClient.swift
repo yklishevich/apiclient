@@ -72,6 +72,9 @@ public class APIClient: NSObject {
         self.noNetworkSessionManager = Session(configuration: configuration)
     }
     
+    /// Sends request to server
+    /// See comment to `typedResponse<T: Decodable>(_:, completionHandler:)` for details how to get response of the
+    /// specified type.
     @discardableResult public func sendRequest(apiRequest: APIRequest) -> DataRequest {
         let theSessionManager = reachability.connection != .unavailable ? sessionManager : noNetworkSessionManager
         
