@@ -12,13 +12,13 @@ import Foundation
 open class APIRemoteError: APIClientError {
     let status: Int?
     
-    init (status: Int?, message: String?) {
+    public init (status: Int?, message: String?) {
         self.status = status
         super.init(message, underlyingError: nil)
     }
     
     // MARK: `LocalizedError` protocol
-    override public var errorDescription: String? {
+    override open var errorDescription: String? {
         let errorTtl = NSLocalizedString("error", tableName: "APIClient", comment: "")
         if let status = status {
             return "\(status) \(errorTtl): \(String(describing: message))" // example: "404 error: Not Found"

@@ -56,7 +56,7 @@ public class APIClient: NSObject {
     public private(set) var baseURL: String
     
     /// Usually UIAppDelegate is set as delegate.
-    weak var delegate: APIClientDelegate?
+    public weak var delegate: APIClientDelegate?
     
     private let sessionManager: Session
     private let noNetworkSessionManager: Session

@@ -16,7 +16,7 @@ import Foundation
 open class APITransportError: APIClientError {
  
     // MARK: `LocalizedError` protocol
-    override public var errorDescription: String? {
+    override open var errorDescription: String? {
         return underlyingError?.localizedDescription
     }
     

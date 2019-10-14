@@ -26,7 +26,7 @@ open class APIClientError: LocalizedError, CustomStringConvertible {
         self.init(message, underlyingError: nil)
     }
     
-    convenience init(underlyingError: Error) {
+    public convenience init(underlyingError: Error) {
         self.init(nil, underlyingError: underlyingError)
     }
     
