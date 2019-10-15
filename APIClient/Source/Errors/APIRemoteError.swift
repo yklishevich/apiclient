@@ -19,12 +19,11 @@ open class APIRemoteError: APIClientError {
     
     // MARK: `LocalizedError` protocol
     override open var errorDescription: String? {
-        let errorTtl = NSLocalizedString("error", tableName: "APIClient", comment: "")
         if let status = status {
-            return "\(status) \(errorTtl): \(String(describing: message))" // example: "404 error: Not Found"
+            return "\(status) \("error".localized): \(String(describing: message))" // example: "404 error: Not Found"
         }
         else {
-            return "\(errorTtl): \(String(describing: message))" // example: "error: Not Found"
+            return "\("error".localized): \(String(describing: message))" // example: "error: Not Found"
         }
     }
 }

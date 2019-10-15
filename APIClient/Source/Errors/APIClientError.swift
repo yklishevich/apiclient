@@ -53,8 +53,7 @@ open class APIClientError: LocalizedError, CustomStringConvertible {
             }
         }
         if let underlyingError = underlyingError {
-            let errorTtl = NSLocalizedString("error", tableName: "APIClient", comment: "")
-            description += "\(errorTtl): \(underlyingError)"
+            description += "\("error".localized): \(underlyingError)"
         }
         description += ")"
         return description
@@ -95,5 +94,18 @@ extension APIClientError {
             retError = APIClientError("Unknown error", underlyingError: error)
         }
         return retError
+    }
+}
+
+extension String {
+    var localized: String {
+        let bundle: Bundle
+        if let path = Bundle(for: APIClient.self).path(forResource: "APIClientResources", ofType: "bundle") {
+            bundle = Bundle(path: path)!
+        }
+        else {
+            bundle = Bundle.main
+        }
+        return NSLocalizedString(self, tableName: "APIClient", bundle: bundle, comment: "")
     }
 }

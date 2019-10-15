@@ -76,6 +76,8 @@ public class APIClient: NSObject {
     /// See comment to `typedResponse<T: Decodable>(_:, completionHandler:)` for details how to get response of the
     /// specified type.
     @discardableResult public func sendRequest(apiRequest: APIRequest) -> DataRequest {
+        print("error".localized)
+        
         let theSessionManager = reachability.connection != .unavailable ? sessionManager : noNetworkSessionManager
         
         switch apiRequest {
