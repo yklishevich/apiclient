@@ -74,7 +74,11 @@ extension APIClientError {
                     retError = APITimeoutError(nsError.localizedDescription, underlyingError: error)
                 }
                 else {
-                    retError = APIClientError(underlyingError: afError)
+                    // AFError can add additional text to message of underlying error in it's localizedDescription,
+                    // so we pass error.localizedDescription as message
+                    // For example in case of "Domain=NSURLErrorDomain Code=-1009 "De internetverbinding is offline."
+                    // AFError.localizedDescription returns "URLSessionTask failed with error: De internetverbinding is offline."
+                    retError = APIClientError(error.localizedDescription, underlyingError: afError)
                 }
             case .responseValidationFailed(let responseValidationFailureReason):
                 switch responseValidationFailureReason {
