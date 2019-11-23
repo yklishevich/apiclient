@@ -75,6 +75,7 @@ public class APIClient: NSObject {
     /// Sends request to server
     /// See comment to `typedResponse<T: Decodable>(_:, completionHandler:)` for details how to get response of the
     /// specified type.
+    /// Result is returned on main thread.
     @discardableResult public func sendRequest(apiRequest: APIRequest) -> DataRequest {
         print("error".localized)
         
