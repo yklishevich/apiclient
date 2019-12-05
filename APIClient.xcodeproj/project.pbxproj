@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1DE89D06D7BB6F4FD6816F4B /* Pods_APIClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 313E81889BB00E41B0220517 /* Pods_APIClient.framework */; };
 		A3150831232EBC4000761F9A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3150830232EBC4000761F9A /* AppDelegate.swift */; };
 		A3150833232EBC4000761F9A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3150832232EBC4000761F9A /* ViewController.swift */; };
 		A3150836232EBC4000761F9A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3150834232EBC4000761F9A /* Main.storyboard */; };
@@ -33,11 +34,11 @@
 		A3B84033232EBD1C007DBBD8 /* RestAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B84019232EBD1C007DBBD8 /* RestAPIRequest.swift */; };
 		A3B84040232EBD1C007DBBD8 /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B8402A232EBD1C007DBBD8 /* UserRequest.swift */; };
 		A3D63BA82355CE5D004B8A9D /* APIClient.strings in Resources */ = {isa = PBXBuildFile; fileRef = A3D63BA52355CE5C004B8A9D /* APIClient.strings */; };
-		C04862D3C0F8A65E59656EA4 /* Pods_Networking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 571456B9A6023D8AC7E5D5D2 /* Pods_Networking.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		571456B9A6023D8AC7E5D5D2 /* Pods_Networking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Networking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		15CB19F417ED492C379ACA96 /* Pods-APIClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APIClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-APIClient/Pods-APIClient.debug.xcconfig"; sourceTree = "<group>"; };
+		313E81889BB00E41B0220517 /* Pods_APIClient.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_APIClient.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		75F0D637BC41CC5DE6625CFF /* Pods-Networking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Networking.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Networking/Pods-Networking.debug.xcconfig"; sourceTree = "<group>"; };
 		A315082D232EBC4000761F9A /* APIClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APIClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3150830232EBC4000761F9A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -70,6 +71,7 @@
 		A3D63BA62355CE5C004B8A9D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/APIClient.strings; sourceTree = "<group>"; };
 		A3D63BA72355CE5C004B8A9D /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/APIClient.strings; sourceTree = "<group>"; };
 		A829CF802D5444745C01BEB2 /* Pods-Networking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Networking.release.xcconfig"; path = "Pods/Target Support Files/Pods-Networking/Pods-Networking.release.xcconfig"; sourceTree = "<group>"; };
+		B11E0BA5D571B181529F23A0 /* Pods-APIClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-APIClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-APIClient/Pods-APIClient.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,7 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C04862D3C0F8A65E59656EA4 /* Pods_Networking.framework in Frameworks */,
+				1DE89D06D7BB6F4FD6816F4B /* Pods_APIClient.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,7 +238,7 @@
 		CB8E3645B0AC55153E4B297E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				571456B9A6023D8AC7E5D5D2 /* Pods_Networking.framework */,
+				313E81889BB00E41B0220517 /* Pods_APIClient.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -246,6 +248,8 @@
 			children = (
 				75F0D637BC41CC5DE6625CFF /* Pods-Networking.debug.xcconfig */,
 				A829CF802D5444745C01BEB2 /* Pods-Networking.release.xcconfig */,
+				15CB19F417ED492C379ACA96 /* Pods-APIClient.debug.xcconfig */,
+				B11E0BA5D571B181529F23A0 /* Pods-APIClient.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -333,7 +337,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Networking-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-APIClient-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -345,19 +349,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Networking/Pods-Networking-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-APIClient/Pods-APIClient-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-APIClient/Pods-APIClient-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Networking/Pods-Networking-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-APIClient/Pods-APIClient-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -540,7 +541,7 @@
 		};
 		A3150840232EBC4100761F9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 75F0D637BC41CC5DE6625CFF /* Pods-Networking.debug.xcconfig */;
+			baseConfigurationReference = 15CB19F417ED492C379ACA96 /* Pods-APIClient.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -560,7 +561,7 @@
 		};
 		A3150841232EBC4100761F9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A829CF802D5444745C01BEB2 /* Pods-Networking.release.xcconfig */;
+			baseConfigurationReference = B11E0BA5D571B181529F23A0 /* Pods-APIClient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

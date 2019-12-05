@@ -19,7 +19,7 @@ public class APIClient: NSObject {
     
     /// Before using this property singleton must be initialized using `initShared(baseURL:)` static function.
     public static let shared: APIClient = {
-        precondition(APIClient.sBaseURL != nil, "Singleton must be initialize using `initShared(baseURL:)`")
+        precondition(APIClient.baseUrlForSharedClient != nil, "Singleton must be initialize using `initShared(baseURL:)`")
         
         let configuration = URLSessionConfiguration.default // alamofire does not support background configuration
         configuration.httpAdditionalHeaders = ["Accept" : "application/json",
@@ -37,79 +37,74 @@ public class APIClient: NSObject {
         guard let apiClientClassName = ProcessInfo.processInfo.environment["APIClientClassName"],
             let apiClientClass = NSClassFromString(apiClientClassName) as? APIClient.Type
             else {
-                return APIClient(baseURL: APIClient.sBaseURL, manager: sessionManager)
+                return APIClient(baseURL: APIClient.baseUrlForSharedClient, manager: sessionManager)
         }
         
-        return apiClientClass.init(baseURL: APIClient.sBaseURL, manager: sessionManager)
+        return apiClientClass.init(baseURL: APIClient.baseUrlForSharedClient, manager: sessionManager)
     }()
     
     public static func initShared(baseURL: URL) throws {
-        if APIClient.sBaseURL == nil {
-            APIClient.sBaseURL = baseURL.absoluteString
+        if APIClient.baseUrlForSharedClient == nil {
+            APIClient.baseUrlForSharedClient = baseURL
         }
         else {
             throw APIClientError("\(type(of: APIClient.self)) singleton was already initialized!")
         }
     }
     
-    private static var sBaseURL: String!
-    public private(set) var baseURL: String
+    private static var baseUrlForSharedClient: URL!
+    public private(set) var baseURL: URL
     
     /// Usually UIAppDelegate is set as delegate.
     public weak var delegate: APIClientDelegate?
     
     private let sessionManager: Session
-    private let noNetworkSessionManager: Session
     private let reachability = try! Reachability()
     
     /// Client code can create use preconfigured version of APIClient via `shared` property.
-    public required init(baseURL: String, manager: Session) {
+    public required init(baseURL: URL, manager: Session) {
         self.baseURL = baseURL
         self.sessionManager = manager
-        
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 0.0001 // 0 value leads to default 60 value.
-        self.noNetworkSessionManager = Session(configuration: configuration)
     }
     
     /// Sends request to server
     /// See comment to `typedResponse<T: Decodable>(_:, completionHandler:)` for details how to get response of the
     /// specified type.
     /// Result is returned on main thread.
-    @discardableResult public func sendRequest(apiRequest: APIRequest) -> DataRequest {
-        print("error".localized)
+    @discardableResult public func sendRequest<T: RestAPIRequest>(request: T) -> DataRequest {
+        //        let urlString = restApiRequest.URL ?? (baseURL + restApiRequest.relativeURL)
+        //
+        //        let dataRequest = sessionManager.request(urlString,
+        //                                                 method: restApiRequest.httpMethod,
+        //                                                 parameters: restApiRequest.parameters,
+        //                                                 encoding: restApiRequest.encoder,
+        //                                                 headers: HTTPHeaders(restApiRequest.httpHeaders))
         
-        let theSessionManager = reachability.connection != .unavailable ? sessionManager : noNetworkSessionManager
+        let urlRequestConvertible = APIClientURLRequestConvertible(restApiRequest: request,
+                                                                   baseURL: self.baseURL)
+        let dataRequest = sessionManager.request(urlRequestConvertible)
         
-        switch apiRequest {
-            
-        case let fixedEndpointApiRequest as FixedEndpointApiRequest:
-            let url = apiRequest.URL ?? baseURL
-            return theSessionManager.request(url,
-                                             method: .get,
-                                             parameters: fixedEndpointApiRequest.parameters,
-                                             encoding: URLEncoding.default)
-            
-        case let restApiRequest as RestAPIRequest:
-            let urlString = restApiRequest.URL ?? (baseURL + restApiRequest.relativeURL)
-            
-            let encoding: ParameterEncoding =
-                (restApiRequest.httpMethod == .get) ? URLEncoding.default : JSONEncoding.default
-            
-            let dataRequest = theSessionManager.request(urlString,
-                                                        method: restApiRequest.httpMethod,
-                                                        parameters: restApiRequest.parameters,
-                                                        encoding: encoding,
-                                                        headers: HTTPHeaders(restApiRequest.httpHeaders ?? [:]))
-            
-            return dataRequest.validateForErrors(apiClient: self)
-            
-        default:
-            fatalError("Unknown type of request: \(apiRequest)!")
-        }
+        return dataRequest.validateForErrors(apiClient: self)
     }
 }
 
+private struct APIClientURLRequestConvertible<T: RestAPIRequest> : URLRequestConvertible {
+    let restApiRequest: T
+    let baseURL: URL
+    
+    func asURLRequest() throws -> URLRequest {
+        var url: URL? = restApiRequest.URL
+        if url == nil {
+            url = baseURL.appendingPathComponent(restApiRequest.relativeURL)
+        }
+        
+        var urlRequest = URLRequest(url: url!)
+        urlRequest.httpMethod = restApiRequest.httpMethod.rawValue
+        urlRequest = try restApiRequest.encoder.encode(restApiRequest.parameters, into: urlRequest)
+        
+        return urlRequest
+    }
+}
 
 private extension DataRequest {
     

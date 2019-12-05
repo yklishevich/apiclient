@@ -27,7 +27,7 @@ class ViewController: UIViewController {
      */
     private func downloadOrUpdateUser(completion: ((Error?) -> Void)?) -> DataRequest {
         let userRequest = UserRequest()
-        let dataRequest = APIClient.shared.sendRequest(apiRequest: userRequest).typedResponse(User.self) {
+        let dataRequest = APIClient.shared.sendRequest(request: userRequest).typedResponse(User.self) {
             (response) in
             
             switch response.result {

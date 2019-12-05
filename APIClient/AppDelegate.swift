@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func setUpServices() {
-        let url = URL(fileURLWithPath: "\(Bundle.main.infoDictionary!["com.gmail.eklishevich.project_dir"]!)/Networking")
+        let url = URL(fileURLWithPath: "\(Bundle.main.infoDictionary!["com.gmail.eklishevich.project_dir"]!)/APIClient")
         try! APIClient.initShared(baseURL: url)
         apiClientDelegate = CustomAPIClientDelegate()
         APIClient.shared.delegate = apiClientDelegate

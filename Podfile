@@ -11,20 +11,20 @@ use_frameworks!
 
 platform :ios, '12.0'
 
-target "Networking" do
+target "APIClient" do
 
-pod 'Alamofire', '~> 5.0.0-rc.2'
-pod 'ReachabilitySwift', '~> 5.0.0-beta1'
+# use dependencies from APIClient.podspec
+podspec :name => 'APIClient'
 
 end
 
-post_install do |installer|
-    installer.pods_project.targets.each do |target|
-        if ['Alamofire', 'Gloss', 'Alamofire-Gloss'].include? target.name
-            target.build_configurations.each do |config|
-                config.build_settings['SWIFT_VERSION'] = '4.0'
-            end
-        end
-    end
-end
+#post_install do |installer|
+#    installer.pods_project.targets.each do |target|
+#        if ['Alamofire'].include? target.name
+#            target.build_configurations.each do |config|
+#                config.build_settings['SWIFT_VERSION'] = '4.0'
+#            end
+#        end
+#    end
+#end
 
