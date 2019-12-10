@@ -9,8 +9,6 @@
 import Foundation
 
 class UserRequest: RestAPIRequest {
-    typealias EncodableAT = [String:String]
-    
     var relativeURL: String { return "JSON/user.json" }
 }
 

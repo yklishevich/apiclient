@@ -68,41 +68,25 @@ public class APIClient: NSObject {
     }
     
     /// Sends request to server
+    /// 
     /// See comment to `typedResponse<T: Decodable>(_:, completionHandler:)` for details how to get response of the
     /// specified type.
+    ///
+    /// `Content-Type` header is set automatically to `application/json` or to
+    /// `application/x-www-form-urlencoded; charset=utf-8` according to the value in the `request.encoder`.
     /// Result is returned on main thread.
     @discardableResult public func sendRequest<T: RestAPIRequest>(request: T) -> DataRequest {
-        //        let urlString = restApiRequest.URL ?? (baseURL + restApiRequest.relativeURL)
-        //
-        //        let dataRequest = sessionManager.request(urlString,
-        //                                                 method: restApiRequest.httpMethod,
-        //                                                 parameters: restApiRequest.parameters,
-        //                                                 encoding: restApiRequest.encoder,
-        //                                                 headers: HTTPHeaders(restApiRequest.httpHeaders))
-        
-        let urlRequestConvertible = APIClientURLRequestConvertible(restApiRequest: request,
-                                                                   baseURL: self.baseURL)
-        let dataRequest = sessionManager.request(urlRequestConvertible)
-        
-        return dataRequest.validateForErrors(apiClient: self)
-    }
-}
-
-private struct APIClientURLRequestConvertible<T: RestAPIRequest> : URLRequestConvertible {
-    let restApiRequest: T
-    let baseURL: URL
-    
-    func asURLRequest() throws -> URLRequest {
-        var url: URL? = restApiRequest.URL
+        var url: URL! = request.absoluteURL
         if url == nil {
-            url = baseURL.appendingPathComponent(restApiRequest.relativeURL)
+            url = baseURL.appendingPathComponent(request.relativeURL)
         }
-        
-        var urlRequest = URLRequest(url: url!)
-        urlRequest.httpMethod = restApiRequest.httpMethod.rawValue
-        urlRequest = try restApiRequest.encoder.encode(restApiRequest.parameters, into: urlRequest)
-        
-        return urlRequest
+        let dataRequest = sessionManager.request(url,
+                                                 method: request.httpMethod,
+                                                 parameters: request.parameters,
+                                                 encoder: request.encoder,
+                                                 headers: HTTPHeaders(request.httpHeaders),
+                                                 interceptor: nil)
+        return dataRequest.validateForErrors(apiClient: self)
     }
 }
 
