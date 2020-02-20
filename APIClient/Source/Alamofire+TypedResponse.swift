@@ -15,6 +15,7 @@ public extension DataRequest {
     ///     }
     ///
     /// Errors being returned in `DataResponse.result.failure` are of type `APIError`.
+    /// - parameter completionHandler: invoked on main thread
     @discardableResult
     func typedResponse<T: Decodable>(_ type: T.Type,
                                      completionHandler: @escaping (DataResponse<T, APIClientError>) -> Void) -> Self {

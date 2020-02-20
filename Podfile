@@ -13,6 +13,7 @@ platform :ios, '12.0'
 
 target "APIClient" do
 
+  
 # use dependencies from APIClient.podspec
 podspec :name => 'APIClient'
 

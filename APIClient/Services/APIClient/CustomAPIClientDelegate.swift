@@ -1,7 +1,4 @@
 //
-//  WPA_APIClientDelegate.swift
-//  WPA-Robertus
-//
 //  Created by Yauheni Klishevich on 12/10/2019.
 //  Copyright © 2019 WPA. All rights reserved.
 //
@@ -10,7 +7,9 @@ import Foundation
 
 class CustomAPIClientDelegate: APIClientDelegate {
     
-     func apiClient(_ apiClient: APIClient, urlResponse: HTTPURLResponse, data: Data?) -> APIClientError? {
+     func apiClient(_ apiClient: APIClient,
+                    urlResponse: HTTPURLResponse,
+                    data: Data?) -> APIClientError? {
         
         if let error = self.checkAppVersion(urlResponse) {
             return error
@@ -18,7 +17,8 @@ class CustomAPIClientDelegate: APIClientDelegate {
         else if let error = self.checkWhetherServerIsOnMaintenance(urlResponse) {
             return error
         }
-        else if urlResponse.statusCode < 200 || urlResponse.statusCode >= 300 {
+            
+        else if (200 ... 299).contains(urlResponse.statusCode) == false {
             return self.errorResponseToAPIClientError(data: data)
         }
         else {

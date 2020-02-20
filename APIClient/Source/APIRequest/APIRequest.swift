@@ -7,10 +7,6 @@ import Alamofire
  */
 public protocol APIRequest {
     
-    // We were forced to intoduce associated type to be able to implement
-    // `APIClient.APIClientURLRequestConvertible.asURLRequest()` method
-    associatedtype Parameters: Encodable = [String:String]
-    
     /// Endpoint URL.
     /// Allows to change URL for the given request.
     /// If `nil` then APIClient uses some default value.
@@ -24,14 +20,14 @@ public protocol APIRequest {
     var httpMethod: HTTPMethod { get }
     
     /// Default implementation returns `nil`
-    /// Dictionary conforms to `Encodable` protocol.
-    var parameters: Parameters? {get}
+    /// Dictionary conforms to `Encodable` protocol and can be used as `ParametersAT` associated type.
+    var parameters: Encodable {get}
     
     /// Default implementation returns `[:]`
     var httpHeaders: [String : String] { get }
     
     /// Default implementation returns `URLEncodedFormParameterEncoder.default` for `GET`, `HEAD` and `DELETE`
-    /// and returns`URLEncodedFormParameterEncoder.default` for requests with any other HTTP method
+    /// and returns`JSONParameterEncoder.default` for requests with any other HTTP method
     var encoder: ParameterEncoder { get }
 }
 

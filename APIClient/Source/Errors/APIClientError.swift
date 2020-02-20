@@ -1,6 +1,5 @@
 //
 //  APIClientError.swift
-//  WPA-Robertus
 //
 //  Created by Yauheni Klishevich on 11/10/2019.
 //  Copyright © 2019 WPA. All rights reserved.

@@ -19,7 +19,8 @@ public class APIClient: NSObject {
     
     /// Before using this property singleton must be initialized using `initShared(baseURL:)` static function.
     public static let shared: APIClient = {
-        precondition(APIClient.baseUrlForSharedClient != nil, "Singleton must be initialize using `initShared(baseURL:)`")
+        precondition(APIClient.baseUrlForSharedClient != nil,
+                     "Singleton must be initialize using `initShared(baseURL:)`")
         
         let configuration = URLSessionConfiguration.default // alamofire does not support background configuration
         configuration.httpAdditionalHeaders = ["Accept" : "application/json",
@@ -61,7 +62,7 @@ public class APIClient: NSObject {
     private let sessionManager: Session
     private let reachability = try! Reachability()
     
-    /// Client code can create use preconfigured version of APIClient via `shared` property.
+    /// Client code can use preconfigured version of APIClient via `shared` property.
     public required init(baseURL: URL, manager: Session) {
         self.baseURL = baseURL
         self.sessionManager = manager
@@ -75,14 +76,14 @@ public class APIClient: NSObject {
     /// `Content-Type` header is set automatically to `application/json` or to
     /// `application/x-www-form-urlencoded; charset=utf-8` according to the value in the `request.encoder`.
     /// Result is returned on main thread.
-    @discardableResult public func sendRequest<T: RestAPIRequest>(request: T) -> DataRequest {
+    @discardableResult public func sendRequest(request: RestAPIRequest) -> DataRequest {
         var url: URL! = request.absoluteURL
         if url == nil {
             url = baseURL.appendingPathComponent(request.relativeURL)
         }
         let dataRequest = sessionManager.request(url,
                                                  method: request.httpMethod,
-                                                 parameters: request.parameters,
+                                                 parameters: AnyEncodable(request.parameters),
                                                  encoder: request.encoder,
                                                  headers: HTTPHeaders(request.httpHeaders),
                                                  interceptor: nil)
@@ -105,4 +106,22 @@ private extension DataRequest {
         return dataRequest
     }
     
+}
+
+/// Idea was taken from https://medium.com/@sergey.gavrilyuk/dynamic-encodable-with-type-erasure-1875722b3171
+/// This struct allows to  have `APIRequest.parameters` property as having `Encodable` type rather then use some generic type constrained
+/// to `Encodable`. In latter case `APIRequest` imposes additional requirements to its clients. For example client cannot have heterogenious
+/// array of requests, or use `APIRequest` as a type, which won't allow to use fabric method patter for overriding type of  request in subclass.
+private struct AnyEncodable: Encodable {
+  var _encodeFunc: (Encoder) throws -> Void
+  
+  init(_ encodable: Encodable) {
+    func _encode(to encoder: Encoder) throws {
+      try encodable.encode(to: encoder)
+    }
+    self._encodeFunc = _encode
+  }
+  func encode(to encoder: Encoder) throws {
+    try _encodeFunc(encoder)
+  }
 }

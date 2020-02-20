@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -179,9 +179,9 @@
 		A360095123525A5500314C8C /* APIClient */ = {
 			isa = PBXGroup;
 			children = (
-				A360095423525BED00314C8C /* Errors */,
 				A360095223525AA200314C8C /* CustomAPIClientDelegate.swift */,
 				A3B8401D232EBD1C007DBBD8 /* Requests */,
+				A360095423525BED00314C8C /* Errors */,
 			);
 			path = APIClient;
 			sourceTree = "<group>";
